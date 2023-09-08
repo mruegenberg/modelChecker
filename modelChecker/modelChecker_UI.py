@@ -257,7 +257,7 @@ class UI(QtWidgets.QMainWindow):
         if len(selection) > 0:
             nodes = []
             for node in selection:
-                relatives = cmds.listRelatives(node, allDescendents=True, typ="transform")
+                relatives = cmds.listRelatives(node, allDescendents=True, typ="transform", fullPath=True)
                 if relatives:
                     nodes.extend(relatives)
                 nodes.append(node)
@@ -275,7 +275,7 @@ class UI(QtWidgets.QMainWindow):
         if cmds.objExists(topNode):
             nodes.append(topNode)
             children = cmds.listRelatives(
-                topNode, allDescendents=True, typ="transform")
+                topNode, allDescendents=True, typ="transform", fullPath=True)
             if children:
                 nodes.extend(children)
         else:
@@ -300,7 +300,7 @@ class UI(QtWidgets.QMainWindow):
         diagnostics = {}
         SLMesh = om.MSelectionList()       
         for node in nodes:
-            shapes = cmds.listRelatives(node, shapes=True, typ="mesh")
+            shapes = cmds.listRelatives(node, shapes=True, typ="mesh", fullPath=True)
             if shapes:
                 SLMesh.add(node)
         for command in commands:
